@@ -1,45 +1,76 @@
 #include <iostream>
-#include "section.h"
+#include "priorityqueue.h"
+#include "dynamicpriorityqueue.h"
 
 using namespace std;
 
-int main(int argc, char** argv) 
+int main()
 {
-	char op;
-	Section section("BSCS 2 F1");
-	Student s;
-	int i;
-	
-	do
-	{
-		cout << "Enter operation: ";
-		cin >> op;
-		
-		cin.ignore();
-		
-		switch(op)
-		{
-			case 'a':
-				cout << "Enter name: ";
-				getline(cin, s.name);
-				cout << "Enter roll number: ";
-				cin >> s.rollNumber;
-				cout << "Enter 5 grades:\n";
-				for (i = 0; i < 5; i++)
-					cin >> s.marks[i];
-				section.addStudent(&s);
-				break;
-			
-			case 'p':
-				cout << "Printing..." << endl << endl;
-				section.printStudents();
-				break;
-			
-			case 'x':
-				return 0;
-		}
-	} while (op != 'x');
-	
-
-	return 0;
+    dynamicpriorityqueue *pq = new dynamicpriorityqueue();
+    
+    char op;
+    int value;
+    int priority;
+    
+    do 
+    {
+        cout << "OP (e: enqueue, d: dequeue, p: print, h: peek, u: update, s: size, c: clear, a: average, x: exit): ";
+        cin >> op;
+        
+        switch(op)
+        {
+            case 'e':
+                cout << "Enter value and priority: ";
+                cin >> value >> priority;
+                pq->enqueue(value, priority);
+                break;
+            
+            case 'd':
+                if (pq->getSize() > 0)
+                    cout << "Dequeued: " << pq->dequeueHighestPriority() << endl;
+                else
+                    cout << "Queue is empty." << endl;
+                break;
+                
+            case 'p':
+            	pq->printQueue();
+            	break;
+            	
+            case 'h':
+                if (pq->getSize() > 0)
+                        cout << "Highest Priority Element: " << pq->peekHighestPriority() << endl;
+                else
+                        cout << "Queue is empty." << endl;
+                break;
+                
+            case 'u':
+                cout << "Enter value and new priority: ";
+                cin >> value >> priority;
+                pq->updatePriority(value, priority);
+                break;
+                
+            case 's':
+                cout << "Size: " << pq->getSize() << endl;
+                break;
+                
+            case 'c':
+                pq->clear();
+                cout << "Queue cleared" << endl;
+                break;
+                
+            case 'a':
+                cout << "Average priority: " << pq->getAveragePriority() << endl;
+                break;
+                
+            case 'x':
+                cout << "Exiting..." << endl;
+                return 0;
+                
+            default:
+                cout << "Invalid operation" << endl;
+        }
+        
+    } while (op != 'x');
+    
+    return 0;
 }
