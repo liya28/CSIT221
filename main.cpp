@@ -1,45 +1,35 @@
+#include "coursearraylist.h"
 #include <iostream>
-#include "section.h"
+#include <string>
 
 using namespace std;
 
-int main(int argc, char** argv) 
+int main()
 {
-	char op;
-	Section section("BSCS 2 F1");
-	Student s;
-	int i;
-	
-	do
-	{
-		cout << "Enter operation: ";
-		cin >> op;
-		
-		cin.ignore();
-		
-		switch(op)
-		{
-			case 'a':
-				cout << "Enter name: ";
-				getline(cin, s.name);
-				cout << "Enter roll number: ";
-				cin >> s.rollNumber;
-				cout << "Enter 5 grades:\n";
-				for (i = 0; i < 5; i++)
-					cin >> s.marks[i];
-				section.addStudent(&s);
-				break;
-			
-			case 'p':
-				cout << "Printing..." << endl << endl;
-				section.printStudents();
-				break;
-			
-			case 'x':
-				return 0;
-		}
-	} while (op != 'x');
-	
-
-	return 0;
+    CourseArrayList cal;
+    
+    cal.addCourse(101, "Data Structures and Algorithms");
+    cal.addCourse(102, "OOP 1");
+    
+    // Adding students to the courses
+    cal.addStudentToCourse(101, 1, "Aliyah", 99.99);
+    cal.addStudentToCourse(101, 2, "Clyd", 99.90);
+    cal.addStudentToCourse(102, 3, "Harliy", 99.89);
+    
+    // Display all courses and students
+    cout << "Courses and their students: " << endl;
+    cal.printAllCoursesAndStudents();
+    
+    // Try removing a valid student from Course 101
+    cal.removeStudentFromCourse(101, 2); // Remove Clyd from DSA
+    cout << "\nAfter removing a student from Course 101: " << endl;
+    cal.printAllCoursesAndStudents();
+    
+    // Remove the entire course
+    cal.removeCourse(101); // Removing DSA
+    cout << "\nAfter removing DSA course: " << endl;
+    cal.printAllCoursesAndStudents();
+    
+    return 0;
 }
+

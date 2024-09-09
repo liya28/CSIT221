@@ -1,25 +1,12 @@
 #include <string>
-#include <cstdlib>
 
 using namespace std;
 
 struct Student
 {
 	string name;
-	int rollNumber;
-	int *marks;
-	int totalMarks;
+	int id;
+	double grade;	
 	
-	Student() : name(""), rollNumber(0), totalMarks(0)
-	{
-		marks = (int*)malloc(5 * sizeof(int));
-	}
-	
-	int getTotalMarks()
-	{
-		int sum = 0, i;
-		for (i = 0; i < 5; i++)
-			sum += marks[i];
-		return sum;
-	}
+	Student(string name = "", int id = 0, double grade = 0.0) : name(name), id(id), grade(grade) {}
 };
